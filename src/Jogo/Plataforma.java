@@ -1,3 +1,7 @@
+package Jogo;
+
+import Mananger.EntradaException;
+
 
 public class Plataforma extends Jogo {
 
@@ -8,9 +12,10 @@ public class Plataforma extends Jogo {
 	 *            Nome do Jogo.
 	 * @param preco
 	 *            Preço do Jogo.
+	 * @throws EntradaException 
 	 */
 	
-	public Plataforma(String nome, double preco) {
+	public Plataforma(String nome, double preco) throws EntradaException {
 		super(nome, preco);
 	}
 

@@ -1,9 +1,15 @@
+package Testes;
 import static org.junit.Assert.*;
 
 import java.util.HashSet;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import Jogo.Jogabilidade;
+import Jogo.Jogo;
+import Mananger.Loja;
+import Usuario.Usuario;
 
 
 public class Teste {

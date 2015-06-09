@@ -1,12 +1,29 @@
+package Usuario;
+import Jogo.Jogabilidade;
+import Jogo.Jogo;
+import Mananger.DadoInvalidoException;
+import Mananger.EntradaException;
+import Mananger.LogicaException;
+import Mananger.StringInvalidaException;
+
 
 public class Noob extends Usuario {
 
-	public Noob(String nome, String login) {
+	public Noob(String nome, String login) throws EntradaException {
 		super(nome, login);
 	}
 
 	@Override
-	public void recompensar(String nomeDoJogo, int score, boolean zerouOJogo){
+	public void recompensar(String nomeDoJogo, int score, boolean zerouOJogo) throws EntradaException {
+		
+		if (nomeDoJogo.equals("") || nomeDoJogo == null) {
+			throw new StringInvalidaException();
+		}
+		
+		if (score < 0) {
+			throw new DadoInvalidoException();
+		}
+		
 		for (Jogo jogo : listaDeJogosComprados) {
 			if (jogo.getNome().equals(nomeDoJogo)){
 				this.x2p += jogo.joga(score, zerouOJogo);
@@ -19,11 +36,20 @@ public class Noob extends Usuario {
 				
 			}
 		}
-		//exception o jogo nao faz parte
+		//jogo nao existe
 	}
 	
 	@Override
-	public void punir(String nomeDoJogo, int score, boolean zerouOJogo){
+	public void punir(String nomeDoJogo, int score, boolean zerouOJogo) throws EntradaException {
+		
+		if (nomeDoJogo.equals("") || nomeDoJogo == null) {
+			throw new StringInvalidaException();
+		}
+		
+		if (score < 0) {
+			throw new DadoInvalidoException();
+		}                                      
+		
 		for (Jogo jogo : listaDeJogosComprados) {
 			if (jogo.getNome().equals(nomeDoJogo)){
 				this.x2p += jogo.joga(score, zerouOJogo);

@@ -1,6 +1,15 @@
+package Mananger;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
+import Jogo.Jogabilidade;
+import Jogo.Jogo;
+import Jogo.JogoFactory;
+import Usuario.Noob;
+import Usuario.Usuario;
+import Usuario.Veterano;
 
 public class Loja {
 	
@@ -21,16 +30,21 @@ public class Loja {
 			if (usuario.getLogin().equals(loginDoUsuario)) {
 				if (!(usuario.toString().equals("Veterano"))) {
 					if (usuario.getX2p() >= 1000) {
-						Usuario usuarioUp = new Veterano(usuario.getNome(), usuario.getLogin());
-						
-						usuarioUp.setDinheiro(usuario.getDinheiro());
-						usuarioUp.setListaDeJogosComprados(usuario.getListaDeJogosComprados());
-						usuarioUp.setPrecoTotalArrecadado(usuario.getPrecoTotalArrecadado());
-						usuarioUp.setX2p(usuario.x2p);
-						
-						this.listaDeUsuarios.remove(usuario);
-						this.listaDeUsuarios.add(usuarioUp);
-						return true;
+						Usuario usuarioUp;
+						try {
+							usuarioUp = new Veterano(usuario.getNome(), usuario.getLogin());
+							usuarioUp.setDinheiro(usuario.getDinheiro());
+							usuarioUp.setListaDeJogosComprados(usuario.getListaDeJogosComprados());
+							usuarioUp.setPrecoTotalArrecadado(usuario.getPrecoTotalArrecadado());
+							usuarioUp.setX2p(usuario.getX2p());
+							this.listaDeUsuarios.remove(usuario);
+							this.listaDeUsuarios.add(usuarioUp);
+							return true;
+							
+						} catch (EntradaException e) {
+							System.out.println(e.getMessage());
+						}
+		
 					}
 					System.out.println("Usuario nao possue xp suficiente");
 					return false;
@@ -56,7 +70,7 @@ public class Loja {
 						usuarioDown.setDinheiro(usuario.getDinheiro());
 						usuarioDown.setListaDeJogosComprados(usuario.getListaDeJogosComprados());
 						usuarioDown.setPrecoTotalArrecadado(usuario.getPrecoTotalArrecadado());
-						usuarioDown.setX2p(usuario.x2p);
+						usuarioDown.setX2p(usuario.getX2p());
 						
 						this.listaDeUsuarios.remove(usuario);
 						this.listaDeUsuarios.add(usuarioDown);
@@ -77,12 +91,17 @@ public class Loja {
 	}
 	
 	public void criaUsuario(String nome, String login){
-		Usuario usuario = new Noob(nome, login);
-		listaDeUsuarios.add(usuario);
+		try{
+			Usuario usuario = new Noob(nome, login);
+			listaDeUsuarios.add(usuario);
+		} catch (EntradaException e) {
+			System.out.println(e.getMessage());
+		}
+		
 	}
 	
 	public Jogo criaJogo(String nome, double preco, String tipo, HashSet<Jogabilidade> jogabilidade){
-		
+		// passar para a factory
 		if (tipo.equals("Rpg")){
 			return factory.criaJogoRpg(nome, preco, jogabilidade);
 		}
@@ -104,7 +123,12 @@ public class Loja {
 	}
 	
 	public void adicionaDinheiro(Usuario usuario, double valor){
-		usuario.adicionaDinheiro(valor);
+		try {
+			usuario.adicionaDinheiro(valor);
+		} catch (EntradaException e) {
+			System.out.println(e.getMessage());
+
+		}
 	}
 	
 	public void imprimeInformacoes(){

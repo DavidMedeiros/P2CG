@@ -1,5 +1,11 @@
+package Usuario;
 import java.util.ArrayList;
 import java.util.List;
+
+import Jogo.Jogo;
+import Mananger.DadoInvalidoException;
+import Mananger.EntradaException;
+import Mananger.StringInvalidaException;
 
 public abstract class Usuario {
 	
@@ -21,7 +27,16 @@ public abstract class Usuario {
 	 *            Login do usuario.
 	 */
 
-	public Usuario(String nome, String login) {
+	public Usuario(String nome, String login) throws EntradaException {
+		
+		if (nome.equals("") || nome == null){
+			throw new StringInvalidaException();
+		}
+		
+		if (login.equals("") || login == null){
+			throw new StringInvalidaException();
+		}
+		
 		this.nome = nome;
 		this.login = login;
 		this.listaDeJogosComprados = new ArrayList<Jogo>();
@@ -51,9 +66,10 @@ public abstract class Usuario {
 	 *            Score da jogada atual.
 	 * @param zerouOJogo
 	 *            Indicação se o usuario zerou o jogo.
+	 * @throws EntradaException 
 	 */
 	
-	public abstract void recompensar(String nomeDoJogo, int score, boolean zerouOJogo);
+	public abstract void recompensar(String nomeDoJogo, int score, boolean zerouOJogo) throws EntradaException;
 	
 	/**
 	 * Metodo responsavel por punir um determinado de tipo de usuario,
@@ -65,9 +81,10 @@ public abstract class Usuario {
 	 *            Score da jogada atual.
 	 * @param zerouOJogo
 	 *            Indicação se o usuario zerou o jogo.
+	 * @throws EntradaException 
 	 */
 	
-	public abstract void punir(String nomeDoJogo, int score, boolean zerouOJogo);
+	public abstract void punir(String nomeDoJogo, int score, boolean zerouOJogo) throws EntradaException ;
 	
 	/**
 	 * Metodo responsavel por adicionar um valor em dinheiro para o usuario.
@@ -76,7 +93,11 @@ public abstract class Usuario {
 	 *            Valor do dinheiro que será adicionado.
 	 */
 	
-	public void adicionaDinheiro(double valor) {
+	public void adicionaDinheiro(double valor) throws EntradaException {
+		if (valor < 0) {
+			throw new DadoInvalidoException();
+		}
+		
 		this.dinheiro += valor;
 	}
 	
@@ -153,6 +174,7 @@ public abstract class Usuario {
 	 */
 	
 	public void setListaDeJogosComprados(List<Jogo> listaDeJogosComprados) {
+
 		this.listaDeJogosComprados = listaDeJogosComprados;
 	}
 

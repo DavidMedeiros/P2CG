@@ -1,4 +1,9 @@
+package Jogo;
 import java.util.HashSet;
+
+import Mananger.DadoInvalidoException;
+import Mananger.EntradaException;
+import Mananger.StringInvalidaException;
 
 
 public abstract class Jogo {
@@ -10,8 +15,16 @@ public abstract class Jogo {
 	protected int vezesZeradas;
 	private HashSet<Jogabilidade> jogabilidades;
 		
-	public Jogo(String nome, double preco) {
+	public Jogo(String nome, double preco) throws EntradaException {
 
+		if (nome.equals("") || nome == null) {
+			throw new StringInvalidaException();
+		}
+		
+		if (preco < 0) {
+			throw new DadoInvalidoException();
+		}
+		
 		this.nome = nome;
 		this.preco = preco;
 		this.maiorScore = 0;

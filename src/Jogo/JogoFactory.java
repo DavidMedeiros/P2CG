@@ -1,4 +1,7 @@
+package Jogo;
 import java.util.HashSet;
+
+import Mananger.EntradaException;
 
 public class JogoFactory {
 	
@@ -15,9 +18,14 @@ public class JogoFactory {
 	 */
 	
 	public Jogo criaJogoRpg(String nome, double preco, HashSet<Jogabilidade> jogabilidade) {
-		Rpg jogoRpg = new Rpg(nome, preco);
-		jogoRpg.setJogabilidades(jogabilidade);
-		return jogoRpg;
+		try{
+			Rpg jogoRpg = new Rpg(nome, preco);
+			jogoRpg.setJogabilidades(jogabilidade);
+			return jogoRpg;
+		} catch (EntradaException e){
+			System.out.println(e.getMessage());
+		}
+		return null;
 	}
 	
 	/**
@@ -33,9 +41,15 @@ public class JogoFactory {
 	 */
 	
 	public Jogo criaJogoLuta(String nome, double preco, HashSet<Jogabilidade> jogabilidade) {
-		Luta jogoLuta = new Luta(nome, preco);
-		jogoLuta.setJogabilidades(jogabilidade);
-		return jogoLuta;
+		try{
+			Luta jogoLuta = new Luta(nome, preco);
+			jogoLuta.setJogabilidades(jogabilidade);
+			return jogoLuta;
+		} catch (EntradaException e){
+			System.out.println(e.getMessage());
+		}
+		return null;
+		
 	}
 	
 	/**
@@ -51,8 +65,14 @@ public class JogoFactory {
 	 */
 	
 	public Jogo criaJogoPlataforma(String nome, double preco, HashSet<Jogabilidade> jogabilidade) {
-		Plataforma jogoPlataforma = new Plataforma(nome, preco);
-		jogoPlataforma.setJogabilidades(jogabilidade);
-		return jogoPlataforma;
+		try {
+			Plataforma jogoPlataforma = new Plataforma(nome, preco);
+			jogoPlataforma.setJogabilidades(jogabilidade);
+			return jogoPlataforma;
+		} catch (EntradaException e) {
+			System.out.println(e.getMessage());
+		}
+		return null;
+		
 	}
 }

@@ -1,3 +1,4 @@
+package Jogo;
 
 public enum Jogabilidade {
 	
