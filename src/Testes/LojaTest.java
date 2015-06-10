@@ -1,7 +1,5 @@
 package Testes;
 
-import static org.junit.Assert.*;
-
 import java.util.HashSet;
 
 import org.junit.Assert;
@@ -10,7 +8,6 @@ import org.junit.Test;
 import Jogo.Jogabilidade;
 import Jogo.Jogo;
 import Mananger.Loja;
-import Mananger.StringInvalidaException;
 import Usuario.Usuario;
 
 public class LojaTest {
@@ -77,8 +74,7 @@ public class LojaTest {
 		}
 				
 		Usuario davidveterano = loja.getListaDeUsuarios().get(0);
-		Usuario netonoob = loja.getListaDeUsuarios().get(1);
-		
+				
 		// Verifica que foi convertido com sucesso.
 		Assert.assertEquals("Veterano", davidveterano.toString());
 		
@@ -95,7 +91,7 @@ public class LojaTest {
 			loja.upgrade("francisco.neto");
 			Assert.fail();
 		} catch (Exception e) {
-			Assert.assertEquals("A quantidade de x2p eh insuficiente para a mudança de tipo.", e.getMessage());
+			Assert.assertEquals("A quantidade de x2p eh insuficiente para a mudanca de tipo.", e.getMessage());
 		}
 		
 		// Tenta fazer upgrade de usuario que nao existe
@@ -111,7 +107,7 @@ public class LojaTest {
 			loja.downgrade("david.souza");
 			Assert.fail();
 		} catch (Exception e) {
-			Assert.assertEquals("A quantidade de x2p eh insuficiente para a mudança de tipo.", e.getMessage());
+			Assert.assertEquals("A quantidade de x2p eh insuficiente para a mudanca de tipo.", e.getMessage());
 		}
 		
 		// Tenta fazer downgrade de um usuario que já é noob

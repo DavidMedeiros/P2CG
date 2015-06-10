@@ -12,45 +12,47 @@ public class JogoFactory {
 	 * @param nome
 	 *            Nome do jogo.
 	 * @param preco
-	 *            Preço do jogo.
+	 *            Preco do jogo.
 	 * @param jogabilidade
 	 *            Lista de jogabilidades.
 	 * @return Retorna um Jogo do tipo RPG.
 	 */
 	
 	private Jogo criaJogoRpg(String nome, double preco, HashSet<Jogabilidade> jogabilidade) {
-		try{
+		try {
 			Rpg jogoRpg = new Rpg(nome, preco);
 			jogoRpg.setJogabilidades(jogabilidade);
+			
 			return jogoRpg;
-		} catch (EntradaException e){
+		} catch (EntradaException e) {
 			System.out.println(e.getMessage());
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Metodo responsavel por criar um jogo do tipo Luta.
 	 * 
 	 * @param nome
 	 *            Nome do jogo.
 	 * @param preco
-	 *            Preço do jogo.
+	 *            Preco do jogo.
 	 * @param jogabilidade
 	 *            Lista de jogabilidades.
 	 * @return Retorna um Jogo do tipo Luta.
 	 */
 	
-	private Jogo criaJogoLuta(String nome, double preco, HashSet<Jogabilidade> jogabilidade) {
-		try{
+	private Jogo criaJogoLuta(String nome, double preco,HashSet<Jogabilidade> jogabilidade) {
+		try {
 			Luta jogoLuta = new Luta(nome, preco);
 			jogoLuta.setJogabilidades(jogabilidade);
+			
 			return jogoLuta;
-		} catch (EntradaException e){
+		} catch (EntradaException e) {
 			System.out.println(e.getMessage());
 		}
 		return null;
-		
+
 	}
 	
 	/**
@@ -59,7 +61,7 @@ public class JogoFactory {
 	 * @param nome
 	 *            Nome do jogo.
 	 * @param preco
-	 *            Preço do jogo.
+	 *            Preco do jogo.
 	 * @param jogabilidade
 	 *            Lista de jogabilidades.
 	 * @return Retorna um Jogo do tipo Plataforma.
@@ -69,6 +71,7 @@ public class JogoFactory {
 		try {
 			Plataforma jogoPlataforma = new Plataforma(nome, preco);
 			jogoPlataforma.setJogabilidades(jogabilidade);
+			
 			return jogoPlataforma;
 		} catch (EntradaException e) {
 			System.out.println(e.getMessage());
@@ -83,29 +86,29 @@ public class JogoFactory {
 	 * @param nome
 	 *            Nome do jogo.
 	 * @param preco
-	 *            Preço do jogo.
+	 *            Preco do jogo.
 	 * @param tipo
 	 *            Tipo do jogo.
 	 * @param jogabilidade
 	 *            Lista de jogabilidades.
 	 * @return Retorna um jogo do tipo que foi passado como parametro.
 	 * @throws EntradaException
-	 *             Uma excessão será lançada caso o tipo passado seja vazio.
+	 *             Uma excessão sera lancada caso o tipo passado seja vazio.
 	 */
 	
 	public Jogo criaJogo(String nome, double preco, String tipo, HashSet<Jogabilidade> jogabilidade) throws EntradaException {
 		
-		if (tipo == null || tipo.equals("")){
+		if (tipo == null || tipo.equals("")) {
 			throw new StringInvalidaException();
 		}
-		
-		if (tipo.equals("Rpg")){
+
+		if (tipo.equals("Rpg")) {
 			return criaJogoRpg(nome, preco, jogabilidade);
 		}
-		if (tipo.equals("Luta")){
+		if (tipo.equals("Luta")) {
 			return criaJogoLuta(nome, preco, jogabilidade);
 		}
-		if (tipo.equals("Plataforma")){
+		if (tipo.equals("Plataforma")) {
 			return criaJogoPlataforma(nome, preco, jogabilidade);
 		}
 		

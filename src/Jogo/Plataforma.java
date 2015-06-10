@@ -12,7 +12,7 @@ public class Plataforma extends Jogo {
 	 * @param nome
 	 *            Nome do Jogo.
 	 * @param preco
-	 *            Preço do Jogo.
+	 *            Preco do Jogo.
 	 * @throws EntradaException 
 	 */
 	
@@ -22,24 +22,22 @@ public class Plataforma extends Jogo {
 
 	/**
 	 * Metodo responsavel por jogar o jogo do tipo Plataforma, atualizando o maior
-	 * score e a quantidade de vezes zeradas, se necessario. Além de atualizar a
+	 * score e a quantidade de vezes zeradas, se necessario. Alem de atualizar a
 	 * quantidade de vezes jogadas.
 	 * 
 	 * @param score
 	 *            Score da jogada atual.
 	 * @param zerouOJogo
-	 *            Indicação se o usuario zerou o jogo.
-	 * @return Retorna o calculo da pontuação x2p para o jogo do tipo Plataforma.
+	 *            Indica se o usuario zerou o jogo.
+	 * @return Retorna o calculo da pontuacao x2p para o jogo do tipo Plataforma.
 	 * @throws DadoInvalidoException 
 	 */
 	
 	@Override
 	public int joga(int score, boolean zerouOJogo) throws DadoInvalidoException {
 
-		if (score < 0 || score > 100000) {
+		if (score < 0 || score > 100000)
 			throw new DadoInvalidoException();
-		}
-		
 		if (score > this.maiorScore)
 			this.maiorScore = score;
 		if (zerouOJogo)

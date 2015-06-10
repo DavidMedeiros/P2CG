@@ -67,7 +67,7 @@ public class UsuarioTest {
 				usuarioNoob.adicionaDinheiro(-10);
 				Assert.fail();
 			} catch (EntradaException e) {
-				Assert.assertEquals("Dado inválido", e.getMessage());
+				Assert.assertEquals("Dado invalido.", e.getMessage());
 			}
 			
 			// Testa Metodo adiciona dinheiro ao usuario com Valor valido
@@ -126,6 +126,7 @@ public class UsuarioTest {
 			
 			
 		} catch (EntradaException | LogicaException e) {
+			System.out.println(e.getMessage());
 			Assert.fail();
 		}
 		
@@ -138,7 +139,7 @@ public class UsuarioTest {
 				usuarioVeterano.adicionaDinheiro(-10);
 				Assert.fail();
 			} catch (EntradaException e) {
-				Assert.assertEquals("Dado inválido", e.getMessage());
+				Assert.assertEquals("Dado invalido.", e.getMessage());
 			}
 			
 			// Testa Metodo adiciona dinheiro ao usuario com Valor valido

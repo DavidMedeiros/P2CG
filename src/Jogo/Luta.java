@@ -3,7 +3,6 @@ package Jogo;
 import Mananger.DadoInvalidoException;
 import Mananger.EntradaException;
 
-
 public class Luta extends Jogo {
 
 	/**
@@ -12,7 +11,7 @@ public class Luta extends Jogo {
 	 * @param nome
 	 *            Nome do Jogo.
 	 * @param preco
-	 *            Preço do Jogo.
+	 *            Preco do Jogo.
 	 * @throws EntradaException 
 	 */
 	
@@ -22,24 +21,22 @@ public class Luta extends Jogo {
 
 	/**
 	 * Metodo responsavel por jogar o jogo do tipo Luta, atualizando se necessario, o maior
-	 * score e a quantidade de vezes zeradas. Além de atualizar a
+	 * score e a quantidade de vezes zeradas. Alem de atualizar a
 	 * quantidade de vezes jogadas.
 	 * 
 	 * @param score
 	 *            Score da jogada atual.
 	 * @param zerouOJogo
-	 *            Indicação se o usuario zerou o jogo.
-	 * @return Retorna o calculo da pontuação x2p para o jogo do tipo Luta.
+	 *            Indica se o usuario zerou o jogo.
+	 * @return Retorna o calculo da pontuacao x2p para o jogo do tipo Luta.
 	 * @throws DadoInvalidoException 
 	 */
 	
 	@Override
 	public int joga(int score, boolean zerouOJogo) throws DadoInvalidoException {
 		
-		if (score < 0 || score > 100000) {
+		if (score < 0 || score > 100000)
 			throw new DadoInvalidoException();
-		}
-		
 		if (score > this.maiorScore)
 			this.maiorScore = score;
 		if (zerouOJogo)

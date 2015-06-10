@@ -19,7 +19,7 @@ public class Noob extends Usuario {
 	 *            Login do usuario.
 	 * 
 	 * @throws EntradaException
-	 *             Uma excessao será lançada caso alguma entrada seja vazia.
+	 *             Uma excessao sera lancada caso alguma entrada seja vazia.
 	 */
 	
 	public Noob(String nome, String login) throws EntradaException {
@@ -34,9 +34,9 @@ public class Noob extends Usuario {
 	 * @param score
 	 *            Score da jogada atual.
 	 * @param zerouOJogo
-	 *            Indicação se o usuario zerou o jogo.
-	 * @throws EntradaException Uma excessão será lançada caso uma entrada seja vazia.
-	 * @throws LogicaException  Uma excessão será lançada caso o jogo a ser recompensado não seja encontrado.
+	 *            Indica se o usuario zerou o jogo.
+	 * @throws EntradaException Uma excessao sera lancada caso uma entrada seja vazia.
+	 * @throws LogicaException  Uma excessao sera lancada caso o jogo a ser recompensado nao seja encontrado.
 	 */
 	
 	@Override
@@ -73,9 +73,9 @@ public class Noob extends Usuario {
 	 * @param score
 	 *            Score da jogada atual.
 	 * @param zerouOJogo
-	 *            Indicação se o usuario zerou o jogo.
-	 * @throws EntradaException Uma excessão será lançada caso uma entrada seja vazia.
-	 * @throws LogicaException  Uma excessão será lançada caso o jogo a ser punido não seja encontrado.
+	 *            Indica se o usuario zerou o jogo.
+	 * @throws EntradaException Uma excessao sera lancada caso uma entrada seja vazia.
+	 * @throws LogicaException  Uma excessao sera lancada caso o jogo a ser punido nao seja encontrado.
 	 */
 	
 	@Override
@@ -101,17 +101,18 @@ public class Noob extends Usuario {
 				if (jogo.getJogabilidades().contains(Jogabilidade.COOPERATIVO)){
 					this.x2p -= 50;
 				}
+				return;
 			}
 		}
 		throw new JogoNaoEncontradoException();
 	}
 	
 	/**
-	 * Metodo responsavel por comprar um jogo, 10% de desconto será ofertado para o usuário do tipo Noob.
+	 * Metodo responsavel por comprar um jogo, 10% de desconto sera ofertado para o usuario do tipo Noob.
 	 * 
 	 * @param jogo
-	 *            Jogo que será comprado.
-	 * @return Retorna o preço do desconto que será dado.
+	 *            Jogo que sera comprado.
+	 * @return Retorna o preco do desconto que sera dado.
 	 */
 	
 	@Override

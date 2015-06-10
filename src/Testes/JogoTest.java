@@ -67,7 +67,7 @@ public class JogoTest {
 				Assert.assertEquals(1, superMario.joga(-100, true));
 				Assert.fail();
 			} catch (EntradaException e) {
-				Assert.assertEquals("Dado inválido", e.getMessage());
+				Assert.assertEquals("Dado invalido.", e.getMessage());
 			}
 			
 		} catch (EntradaException e) {
@@ -94,7 +94,7 @@ public class JogoTest {
 				Assert.assertEquals(1, theStreets.joga(1000000, true));
 				Assert.fail();
 			} catch (EntradaException e) {
-				Assert.assertEquals("Dado inválido", e.getMessage());
+				Assert.assertEquals("Dado invalido.", e.getMessage());
 			}
 			
 			// Score abaixo de 0
@@ -102,7 +102,7 @@ public class JogoTest {
 				Assert.assertEquals(1, theStreets.joga(-100, true));
 				Assert.fail();
 			} catch (EntradaException e) {
-				Assert.assertEquals("Dado inválido", e.getMessage());
+				Assert.assertEquals("Dado invalido.", e.getMessage());
 			}
 				
 		} catch (EntradaException e) {
@@ -129,7 +129,7 @@ public class JogoTest {
 				Assert.assertEquals(1, magicka.joga(-100, true));
 				Assert.fail();
 			} catch (EntradaException e) {
-				Assert.assertEquals("Dado inválido", e.getMessage());
+				Assert.assertEquals("Dado invalido.", e.getMessage());
 			}
 			
 		} catch (EntradaException e) {

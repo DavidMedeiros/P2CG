@@ -67,6 +67,7 @@ public abstract class Usuario {
 	 *            Score da jogada atual.
 	 * @param zerouOJogo
 	 *            Indicação se o usuario zerou o jogo.
+	 * @return 
 	 * @throws EntradaException Uma excessão será lançada caso uma entrada seja vazia.
 	 * @throws LogicaException Uma excessão será lançada caso o jogo a ser recompensado não seja encontrado.
 	 */

@@ -15,28 +15,26 @@ public class Loja {
 	
 	private List<Usuario> listaDeUsuarios;
 	private JogoFactory factory;
-	//private double totalArrecadado;
 	private double totalPrecoJogo;
 		
 	public Loja(){
 		listaDeUsuarios = new ArrayList<Usuario>();
 		factory = new JogoFactory();
-		//totalArrecadado = 0;
 		totalPrecoJogo = 0;
 	}
 	
 	/**
-	 * Metodo responsavel pelo upgrade do usuario. O Upgrade é realizado apenas
-	 * quando o usuario é do tipo Noob e possue x2p maior ou igual a 1000.
+	 * Metodo responsavel pelo upgrade do usuario. O Upgrade eh realizado apenas
+	 * quando o usuario eh do tipo Noob e possue x2p maior ou igual a 1000.
 	 * 
 	 * @param loginDoUsuario
 	 *            Login do usuario.
-	 * @return um boolean é retornado para indicar se a operação foi realizada
+	 * @return um boolean eh retornado para indicar se a operacao foi realizada
 	 *         com sucesso.
 	 * @throws EntradaException, LogicaException 
 	 */
 	
-	public boolean upgrade(String loginDoUsuario) throws EntradaException, LogicaException {
+	public void upgrade(String loginDoUsuario) throws EntradaException, LogicaException {
 		for (Usuario usuario : listaDeUsuarios) {
 			if (usuario.getLogin().equals(loginDoUsuario)) {
 				if (!(usuario.toString().equals("Veterano"))) {
@@ -49,10 +47,10 @@ public class Loja {
 						usuarioUp.setX2p(usuario.getX2p());
 						
 						int indice = listaDeUsuarios.indexOf(usuario);
-						
 						this.listaDeUsuarios.remove(usuario);
 						this.listaDeUsuarios.add(indice, usuarioUp);
-						return true;
+						
+						return;
 					}
 					throw new X2PInsuficienteException();
 				}
@@ -63,17 +61,17 @@ public class Loja {
 	}
 	
 	/**
-	 * Metodo responsavel pelo downgrade do usuario. O Downgrade é realizado apenas
-	 * quando o usuario é do tipo Veterano e possue x2p menor que 1000.
+	 * Metodo responsavel pelo downgrade do usuario. O Downgrade eh realizado apenas
+	 * quando o usuario eh do tipo Veterano e possue x2p menor que 1000.
 	 * 
 	 * @param loginDoUsuario
 	 *            Login do usuario.
-	 * @return um boolean é retornado para indicar se a operação foi realizada
+	 * @return um boolean eh retornado para indicar se a operacao foi realizada
 	 *         com sucesso.
 	 * @throws EntradaException, LogicaException 
 	 */
 	
-	public boolean downgrade(String loginDoUsuario) throws EntradaException, LogicaException  {
+	public void downgrade(String loginDoUsuario) throws EntradaException, LogicaException  {
 		for (Usuario usuario : listaDeUsuarios) {
 			if (usuario.getLogin().equals(loginDoUsuario)) {
 				if(!(usuario.toString().equals("Noob"))){
@@ -90,7 +88,7 @@ public class Loja {
 						
 						this.listaDeUsuarios.remove(usuario);
 						this.listaDeUsuarios.add(indice, usuarioDown);
-						return true;
+						return;
 					}
 					throw new X2PInsuficienteException();
 				}
@@ -109,19 +107,18 @@ public class Loja {
 	 *            login do usuario.
 	 */
 	
-	public void criaUsuario(String nome, String login){
-		try{
+	public void criaUsuario(String nome, String login) {
+		try {
 			Usuario usuario = new Noob(nome, login);
 			listaDeUsuarios.add(usuario);
 		} catch (EntradaException e) {
 			System.out.println(e.getMessage());
 		}
-		
 	}
 	
 	/**
-	 * Metodo utilizado para criar um jogo do tipo que é especificado no
-	 * parametro. Toda a criação do jogo ocorre no factory.
+	 * Metodo utilizado para criar um jogo do tipo que eh especificado no
+	 * parametro. Toda a criacao do jogo ocorre no factory.
 	 * 
 	 * @param nome
 	 *            Nome do jogo.
@@ -135,8 +132,8 @@ public class Loja {
 	 *         contrario, retorna null.
 	 */
 	
-	public Jogo criaJogo(String nome, double preco, String tipo, HashSet<Jogabilidade> jogabilidade){
-		try{
+	public Jogo criaJogo(String nome, double preco, String tipo, HashSet<Jogabilidade> jogabilidade) {
+		try {
 			return factory.criaJogo(nome, preco, tipo, jogabilidade);
 		} catch (EntradaException e) {
 			System.out.println(e.getMessage());
@@ -148,12 +145,12 @@ public class Loja {
 	 * Metodo utilizado para vender um jogo para determinado usuario.
 	 * 
 	 * @param usuario
-	 *            Nome do usuario ao qual será vendido o jogo.
+	 *            Nome do usuario ao qual sera vendido o jogo.
 	 * @param jogo
-	 *            Jogo que será vendido ao usuário.
+	 *            Jogo que sera vendido ao usuario.
 	 */
 
-	public void venderJogo(Usuario usuario, Jogo jogo){
+	public void venderJogo(Usuario usuario, Jogo jogo) {
 		usuario.setPrecoTotalArrecadado(usuario.comprarJogo(jogo));
 	}
 	
@@ -161,12 +158,12 @@ public class Loja {
 	 * Metodo utilizado para adicionar dinheiro ao usuario.
 	 * 
 	 * @param usuario
-	 *            Usuario que terá o dinheiro adicionado.
+	 *            Usuario que tera o dinheiro adicionado.
 	 * @param valor
-	 *            Valor que será adicionado ao dinheiro do usuário.
+	 *            Valor que sera adicionado ao dinheiro do usuario.
 	 */
-	
-	public void adicionaDinheiro(Usuario usuario, double valor){
+
+	public void adicionaDinheiro(Usuario usuario, double valor) {
 		try {
 			usuario.adicionaDinheiro(valor);
 		} catch (EntradaException e) {
@@ -175,7 +172,7 @@ public class Loja {
 	}
 	
 	/**
-	 * Metodo utilizado para imprimir as informações do P2CG
+	 * Metodo utilizado para imprimir as informacoes do P2CG
 	 */
 	
 	public void imprimeInformacoes(){
