@@ -33,37 +33,33 @@ public class Loja {
 	 *            Login do usuario.
 	 * @return um boolean é retornado para indicar se a operação foi realizada
 	 *         com sucesso.
+	 * @throws EntradaException, LogicaException 
 	 */
 	
-	public boolean upgrade(String loginDoUsuario) {
-		try {
-			for (Usuario usuario : listaDeUsuarios) {
-				if (usuario.getLogin().equals(loginDoUsuario)) {
-					if (!(usuario.toString().equals("Veterano"))) {
-						if (usuario.getX2p() >= 1000) {
-							Usuario usuarioUp;
-							usuarioUp = new Veterano(usuario.getNome(), usuario.getLogin());
-							usuarioUp.setDinheiro(usuario.getDinheiro());
-							usuarioUp.setListaDeJogosComprados(usuario.getListaDeJogosComprados());
-							usuarioUp.setPrecoTotalArrecadado(usuario.getPrecoTotalArrecadado());
-							usuarioUp.setX2p(usuario.getX2p());
-							
-							int indice = listaDeUsuarios.indexOf(usuario);
-							
-							this.listaDeUsuarios.remove(usuario);
-							this.listaDeUsuarios.add(indice, usuarioUp);
-							return true;
-						}
-						throw new X2PInsuficienteException();
+	public boolean upgrade(String loginDoUsuario) throws EntradaException, LogicaException {
+		for (Usuario usuario : listaDeUsuarios) {
+			if (usuario.getLogin().equals(loginDoUsuario)) {
+				if (!(usuario.toString().equals("Veterano"))) {
+					if (usuario.getX2p() >= 1000) {
+						Usuario usuarioUp;
+						usuarioUp = new Veterano(usuario.getNome(), usuario.getLogin());
+						usuarioUp.setDinheiro(usuario.getDinheiro());
+						usuarioUp.setListaDeJogosComprados(usuario.getListaDeJogosComprados());
+						usuarioUp.setPrecoTotalArrecadado(usuario.getPrecoTotalArrecadado());
+						usuarioUp.setX2p(usuario.getX2p());
+						
+						int indice = listaDeUsuarios.indexOf(usuario);
+						
+						this.listaDeUsuarios.remove(usuario);
+						this.listaDeUsuarios.add(indice, usuarioUp);
+						return true;
 					}
-					throw new UpgradeVeteranoException();
+					throw new X2PInsuficienteException();
 				}
-			} 
-			throw new UsuarioNaoEncontradoException();
-		} catch (EntradaException | LogicaException e) {
-			System.out.println(e.getMessage());
-			return false; 
-		}
+				throw new UpgradeVeteranoException();
+			}
+		} 
+		throw new UsuarioNaoEncontradoException();
 	}
 	
 	/**
@@ -74,38 +70,34 @@ public class Loja {
 	 *            Login do usuario.
 	 * @return um boolean é retornado para indicar se a operação foi realizada
 	 *         com sucesso.
+	 * @throws EntradaException, LogicaException 
 	 */
 	
-	public boolean downgrade(String loginDoUsuario) {
-		try{
-			for (Usuario usuario : listaDeUsuarios) {
-				if (usuario.getLogin().equals(loginDoUsuario)) {
-					if(!(usuario.toString().equals("Noob"))){
-						if (usuario.getX2p() < 1000) {
+	public boolean downgrade(String loginDoUsuario) throws EntradaException, LogicaException  {
+		for (Usuario usuario : listaDeUsuarios) {
+			if (usuario.getLogin().equals(loginDoUsuario)) {
+				if(!(usuario.toString().equals("Noob"))){
+					if (usuario.getX2p() < 1000) {
+					
+						Usuario usuarioDown = new Noob(usuario.getNome(), usuario.getLogin());
 						
-							Usuario usuarioDown = new Noob(usuario.getNome(), usuario.getLogin());
-							
-							usuarioDown.setDinheiro(usuario.getDinheiro());
-							usuarioDown.setListaDeJogosComprados(usuario.getListaDeJogosComprados());
-							usuarioDown.setPrecoTotalArrecadado(usuario.getPrecoTotalArrecadado());
-							usuarioDown.setX2p(usuario.getX2p());
-							
-							int indice = listaDeUsuarios.indexOf(usuario);
-							
-							this.listaDeUsuarios.remove(usuario);
-							this.listaDeUsuarios.add(indice, usuarioDown);
-							return true;
-						}
-						throw new X2PInsuficienteException();
+						usuarioDown.setDinheiro(usuario.getDinheiro());
+						usuarioDown.setListaDeJogosComprados(usuario.getListaDeJogosComprados());
+						usuarioDown.setPrecoTotalArrecadado(usuario.getPrecoTotalArrecadado());
+						usuarioDown.setX2p(usuario.getX2p());
+						
+						int indice = listaDeUsuarios.indexOf(usuario);
+						
+						this.listaDeUsuarios.remove(usuario);
+						this.listaDeUsuarios.add(indice, usuarioDown);
+						return true;
 					}
-					throw new DowngradeNoobException();
+					throw new X2PInsuficienteException();
 				}
+				throw new DowngradeNoobException();
 			}
-			throw new UsuarioNaoEncontradoException();
-		} catch (EntradaException | LogicaException e) {
-			System.out.println(e.getMessage());
-			return false;
 		}
+		throw new UsuarioNaoEncontradoException();
 	}
 	
 	/**

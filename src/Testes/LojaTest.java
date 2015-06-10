@@ -83,22 +83,52 @@ public class LojaTest {
 		Assert.assertEquals("Veterano", davidveterano.toString());
 		
 		// Tenta fazer upgrade novamente
-		assertFalse(loja.upgrade("david.souza"));
+		try {
+			loja.upgrade("david.souza");
+			Assert.fail();
+		} catch (Exception e) {
+			Assert.assertEquals("O usuario ja eh veterano.", e.getMessage());
+		}
 				
 		// Tenta fazer upgrade com x2p insuficiente
-		assertFalse(loja.upgrade("francisco.neto"));
+		try {
+			loja.upgrade("francisco.neto");
+			Assert.fail();
+		} catch (Exception e) {
+			Assert.assertEquals("A quantidade de x2p eh insuficiente para a mudança de tipo.", e.getMessage());
+		}
 		
 		// Tenta fazer upgrade de usuario que nao existe
-		assertFalse(loja.upgrade("gustavo"));
+		try {
+			loja.upgrade("silvio.santos");
+			Assert.fail();
+		} catch (Exception e) {
+			Assert.assertEquals("O usuario procurado nao foi encontrado.", e.getMessage());
+		}
 				
 		// Tenta fazer downgrade de um veterano com potuação nao compativel
-		assertFalse(loja.downgrade("david.souza"));
+		try {
+			loja.downgrade("david.souza");
+			Assert.fail();
+		} catch (Exception e) {
+			Assert.assertEquals("A quantidade de x2p eh insuficiente para a mudança de tipo.", e.getMessage());
+		}
 		
 		// Tenta fazer downgrade de um usuario que já é noob
-		assertFalse(loja.downgrade("francisco.neto"));
+		try {
+			loja.downgrade("francisco.neto");
+			Assert.fail();
+		} catch (Exception e) {
+			Assert.assertEquals("O usuario ja eh noob.", e.getMessage());
+		}
 		
 		// Tenta fazer downgrade de usuario que nao existe
-		assertFalse(loja.downgrade("gustavo"));
+		try {
+			loja.downgrade("silvio.santos");
+			Assert.fail();
+		} catch (Exception e) {
+			Assert.assertEquals("O usuario procurado nao foi encontrado.", e.getMessage());
+		}
 		
 		// Imprime informaçoes do lojão 
 		loja.imprimeInformacoes();
