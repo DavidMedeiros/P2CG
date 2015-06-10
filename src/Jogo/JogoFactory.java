@@ -2,6 +2,7 @@ package Jogo;
 import java.util.HashSet;
 
 import Mananger.EntradaException;
+import Mananger.StringInvalidaException;
 
 public class JogoFactory {
 	
@@ -17,7 +18,7 @@ public class JogoFactory {
 	 * @return Retorna um Jogo do tipo RPG.
 	 */
 	
-	public Jogo criaJogoRpg(String nome, double preco, HashSet<Jogabilidade> jogabilidade) {
+	private Jogo criaJogoRpg(String nome, double preco, HashSet<Jogabilidade> jogabilidade) {
 		try{
 			Rpg jogoRpg = new Rpg(nome, preco);
 			jogoRpg.setJogabilidades(jogabilidade);
@@ -40,7 +41,7 @@ public class JogoFactory {
 	 * @return Retorna um Jogo do tipo Luta.
 	 */
 	
-	public Jogo criaJogoLuta(String nome, double preco, HashSet<Jogabilidade> jogabilidade) {
+	private Jogo criaJogoLuta(String nome, double preco, HashSet<Jogabilidade> jogabilidade) {
 		try{
 			Luta jogoLuta = new Luta(nome, preco);
 			jogoLuta.setJogabilidades(jogabilidade);
@@ -64,7 +65,7 @@ public class JogoFactory {
 	 * @return Retorna um Jogo do tipo Plataforma.
 	 */
 	
-	public Jogo criaJogoPlataforma(String nome, double preco, HashSet<Jogabilidade> jogabilidade) {
+	private Jogo criaJogoPlataforma(String nome, double preco, HashSet<Jogabilidade> jogabilidade) {
 		try {
 			Plataforma jogoPlataforma = new Plataforma(nome, preco);
 			jogoPlataforma.setJogabilidades(jogabilidade);
@@ -74,5 +75,40 @@ public class JogoFactory {
 		}
 		return null;
 		
+	}
+
+	/**
+	 * Metodo responsavel por criar um jogo de um tipo passado como parametro.
+	 * 
+	 * @param nome
+	 *            Nome do jogo.
+	 * @param preco
+	 *            Preço do jogo.
+	 * @param tipo
+	 *            Tipo do jogo.
+	 * @param jogabilidade
+	 *            Lista de jogabilidades.
+	 * @return Retorna um jogo do tipo que foi passado como parametro.
+	 * @throws EntradaException
+	 *             Uma excessão será lançada caso o tipo passado seja vazio.
+	 */
+	
+	public Jogo criaJogo(String nome, double preco, String tipo, HashSet<Jogabilidade> jogabilidade) throws EntradaException {
+		
+		if (tipo == null || tipo.equals("")){
+			throw new StringInvalidaException();
+		}
+		
+		if (tipo.equals("Rpg")){
+			return criaJogoRpg(nome, preco, jogabilidade);
+		}
+		if (tipo.equals("Luta")){
+			return criaJogoLuta(nome, preco, jogabilidade);
+		}
+		if (tipo.equals("Plataforma")){
+			return criaJogoPlataforma(nome, preco, jogabilidade);
+		}
+		
+		return null;
 	}
 }

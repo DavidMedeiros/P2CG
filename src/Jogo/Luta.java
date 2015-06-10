@@ -1,5 +1,6 @@
 package Jogo;
 
+import Mananger.DadoInvalidoException;
 import Mananger.EntradaException;
 
 
@@ -29,18 +30,23 @@ public class Luta extends Jogo {
 	 * @param zerouOJogo
 	 *            Indicação se o usuario zerou o jogo.
 	 * @return Retorna o calculo da pontuação x2p para o jogo do tipo Luta.
+	 * @throws DadoInvalidoException 
 	 */
 	
 	@Override
-	public int joga(int score, boolean zerouOJogo) {
-
+	public int joga(int score, boolean zerouOJogo) throws DadoInvalidoException {
+		
+		if (score < 0 || score > 100000) {
+			throw new DadoInvalidoException();
+		}
+		
 		if (score > this.maiorScore)
 			this.maiorScore = score;
 		if (zerouOJogo)
 			this.vezesZeradas += 1;
 		this.vezesJogadas += 1;
 		
-		return (this.maiorScore / 1000); //testr com valores quebrados
+		return (this.maiorScore / 1000);
 	}
 	
 	/**

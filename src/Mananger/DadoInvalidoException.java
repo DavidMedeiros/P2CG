@@ -1,7 +1,7 @@
 package Mananger;
 
 public class DadoInvalidoException extends EntradaException {
-	public DadoInvalidoException(){
+	public DadoInvalidoException() {
 		super("Dado inválido");
 	}
 

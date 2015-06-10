@@ -5,6 +5,7 @@ import java.util.List;
 import Jogo.Jogo;
 import Mananger.DadoInvalidoException;
 import Mananger.EntradaException;
+import Mananger.LogicaException;
 import Mananger.StringInvalidaException;
 
 public abstract class Usuario {
@@ -29,11 +30,11 @@ public abstract class Usuario {
 
 	public Usuario(String nome, String login) throws EntradaException {
 		
-		if (nome.equals("") || nome == null){
+		if (nome == null || nome.equals("")){
 			throw new StringInvalidaException();
 		}
 		
-		if (login.equals("") || login == null){
+		if (login == null || login.equals("")){
 			throw new StringInvalidaException();
 		}
 		
@@ -66,10 +67,11 @@ public abstract class Usuario {
 	 *            Score da jogada atual.
 	 * @param zerouOJogo
 	 *            Indicação se o usuario zerou o jogo.
-	 * @throws EntradaException 
+	 * @throws EntradaException Uma excessão será lançada caso uma entrada seja vazia.
+	 * @throws LogicaException Uma excessão será lançada caso o jogo a ser recompensado não seja encontrado.
 	 */
 	
-	public abstract void recompensar(String nomeDoJogo, int score, boolean zerouOJogo) throws EntradaException;
+	public abstract void recompensar(String nomeDoJogo, int score, boolean zerouOJogo) throws EntradaException, LogicaException;
 	
 	/**
 	 * Metodo responsavel por punir um determinado de tipo de usuario,
@@ -81,10 +83,11 @@ public abstract class Usuario {
 	 *            Score da jogada atual.
 	 * @param zerouOJogo
 	 *            Indicação se o usuario zerou o jogo.
-	 * @throws EntradaException 
+	 * @throws EntradaException Uma excessão será lançada caso uma entrada seja vazia.
+	 * @throws LogicaException Uma excessão será lançada caso o jogo a ser punido não seja encontrado.
 	 */
 	
-	public abstract void punir(String nomeDoJogo, int score, boolean zerouOJogo) throws EntradaException ;
+	public abstract void punir(String nomeDoJogo, int score, boolean zerouOJogo) throws EntradaException, LogicaException ;
 	
 	/**
 	 * Metodo responsavel por adicionar um valor em dinheiro para o usuario.

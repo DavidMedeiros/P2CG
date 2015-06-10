@@ -17,7 +17,7 @@ public class Loja {
 	private JogoFactory factory;
 	//private double totalArrecadado;
 	private double totalPrecoJogo;
-	
+		
 	public Loja(){
 		listaDeUsuarios = new ArrayList<Usuario>();
 		factory = new JogoFactory();
@@ -25,70 +25,97 @@ public class Loja {
 		totalPrecoJogo = 0;
 	}
 	
+	/**
+	 * Metodo responsavel pelo upgrade do usuario. O Upgrade é realizado apenas
+	 * quando o usuario é do tipo Noob e possue x2p maior ou igual a 1000.
+	 * 
+	 * @param loginDoUsuario
+	 *            Login do usuario.
+	 * @return um boolean é retornado para indicar se a operação foi realizada
+	 *         com sucesso.
+	 */
+	
 	public boolean upgrade(String loginDoUsuario) {
-		for (Usuario usuario : listaDeUsuarios) {
-			if (usuario.getLogin().equals(loginDoUsuario)) {
-				if (!(usuario.toString().equals("Veterano"))) {
-					if (usuario.getX2p() >= 1000) {
-						Usuario usuarioUp;
-						try {
+		try {
+			for (Usuario usuario : listaDeUsuarios) {
+				if (usuario.getLogin().equals(loginDoUsuario)) {
+					if (!(usuario.toString().equals("Veterano"))) {
+						if (usuario.getX2p() >= 1000) {
+							Usuario usuarioUp;
 							usuarioUp = new Veterano(usuario.getNome(), usuario.getLogin());
 							usuarioUp.setDinheiro(usuario.getDinheiro());
 							usuarioUp.setListaDeJogosComprados(usuario.getListaDeJogosComprados());
 							usuarioUp.setPrecoTotalArrecadado(usuario.getPrecoTotalArrecadado());
 							usuarioUp.setX2p(usuario.getX2p());
-							this.listaDeUsuarios.remove(usuario);
-							this.listaDeUsuarios.add(usuarioUp);
-							return true;
 							
-						} catch (EntradaException e) {
-							System.out.println(e.getMessage());
+							int indice = listaDeUsuarios.indexOf(usuario);
+							
+							this.listaDeUsuarios.remove(usuario);
+							this.listaDeUsuarios.add(indice, usuarioUp);
+							return true;
 						}
-		
+						throw new X2PInsuficienteException();
 					}
-					System.out.println("Usuario nao possue xp suficiente");
-					return false;
-					// usuario nao possue xp suficiente
+					throw new UpgradeVeteranoException();
 				}
-				System.out.println("Usuario ja é veterano");
-				return false;
-				// usuario ja é veterano
-			}
+			} 
+			throw new UsuarioNaoEncontradoException();
+		} catch (EntradaException | LogicaException e) {
+			System.out.println(e.getMessage());
+			return false; 
 		}
-		System.out.println("usuario nao encontrado na lista");
-		return false;
-		//usuario com login nao encontrado na lista
 	}
 	
+	/**
+	 * Metodo responsavel pelo downgrade do usuario. O Downgrade é realizado apenas
+	 * quando o usuario é do tipo Veterano e possue x2p menor que 1000.
+	 * 
+	 * @param loginDoUsuario
+	 *            Login do usuario.
+	 * @return um boolean é retornado para indicar se a operação foi realizada
+	 *         com sucesso.
+	 */
+	
 	public boolean downgrade(String loginDoUsuario) {
-		for (Usuario usuario : listaDeUsuarios) {
-			if (usuario.getLogin().equals(loginDoUsuario)) {
-				if(!(usuario.toString().equals("Noob"))){
-					if (usuario.getX2p() < 1000) {
-						Usuario usuarioDown = new Noob(usuario.getNome(), usuario.getLogin());
+		try{
+			for (Usuario usuario : listaDeUsuarios) {
+				if (usuario.getLogin().equals(loginDoUsuario)) {
+					if(!(usuario.toString().equals("Noob"))){
+						if (usuario.getX2p() < 1000) {
 						
-						usuarioDown.setDinheiro(usuario.getDinheiro());
-						usuarioDown.setListaDeJogosComprados(usuario.getListaDeJogosComprados());
-						usuarioDown.setPrecoTotalArrecadado(usuario.getPrecoTotalArrecadado());
-						usuarioDown.setX2p(usuario.getX2p());
-						
-						this.listaDeUsuarios.remove(usuario);
-						this.listaDeUsuarios.add(usuarioDown);
-						return true;
+							Usuario usuarioDown = new Noob(usuario.getNome(), usuario.getLogin());
+							
+							usuarioDown.setDinheiro(usuario.getDinheiro());
+							usuarioDown.setListaDeJogosComprados(usuario.getListaDeJogosComprados());
+							usuarioDown.setPrecoTotalArrecadado(usuario.getPrecoTotalArrecadado());
+							usuarioDown.setX2p(usuario.getX2p());
+							
+							int indice = listaDeUsuarios.indexOf(usuario);
+							
+							this.listaDeUsuarios.remove(usuario);
+							this.listaDeUsuarios.add(indice, usuarioDown);
+							return true;
+						}
+						throw new X2PInsuficienteException();
 					}
-					System.out.println("USuario possue xp aima de 1000");
-					return false;
-					// usuario possue acima de 1000x2p
+					throw new DowngradeNoobException();
 				}
-				System.out.println("usuario ja eh noob");
-				return false;
-				// usuario já é noob
 			}
+			throw new UsuarioNaoEncontradoException();
+		} catch (EntradaException | LogicaException e) {
+			System.out.println(e.getMessage());
+			return false;
 		}
-		System.out.println("usuario nao encontrado na lista");
-		return false;
-		// usuario na encontrado na lista
 	}
+	
+	/**
+	 * Metodo utilizado para criar um usuario e adiciona-lo a lista de usuarios.
+	 * 
+	 * @param nome
+	 *            Nome do usuario.
+	 * @param login
+	 *            login do usuario.
+	 */
 	
 	public void criaUsuario(String nome, String login){
 		try{
@@ -100,36 +127,64 @@ public class Loja {
 		
 	}
 	
-	public Jogo criaJogo(String nome, double preco, String tipo, HashSet<Jogabilidade> jogabilidade){
-		// passar para a factory
-		if (tipo.equals("Rpg")){
-			return factory.criaJogoRpg(nome, preco, jogabilidade);
-		}
-		if (tipo.equals("Luta")){
-			return factory.criaJogoLuta(nome, preco, jogabilidade);
-		}
-		if (tipo.equals("Plataforma")){
-			return factory.criaJogoPlataforma(nome, preco, jogabilidade);
-		}
-		
-		return null;
-		
-	}
+	/**
+	 * Metodo utilizado para criar um jogo do tipo que é especificado no
+	 * parametro. Toda a criação do jogo ocorre no factory.
+	 * 
+	 * @param nome
+	 *            Nome do jogo.
+	 * @param preco
+	 *            Preco do jogo.
+	 * @param tipo
+	 *            Tipo do jogo.
+	 * @param jogabilidade
+	 *            Lista de jogabilidades.
+	 * @return retorna um jogo caso o mesmo tenha sido criado com sucesso. Caso
+	 *         contrario, retorna null.
+	 */
 	
-	//Como que copia?
+	public Jogo criaJogo(String nome, double preco, String tipo, HashSet<Jogabilidade> jogabilidade){
+		try{
+			return factory.criaJogo(nome, preco, tipo, jogabilidade);
+		} catch (EntradaException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+
+	/**
+	 * Metodo utilizado para vender um jogo para determinado usuario.
+	 * 
+	 * @param usuario
+	 *            Nome do usuario ao qual será vendido o jogo.
+	 * @param jogo
+	 *            Jogo que será vendido ao usuário.
+	 */
+
 	public void venderJogo(Usuario usuario, Jogo jogo){
 		usuario.setPrecoTotalArrecadado(usuario.comprarJogo(jogo));
-		
 	}
+	
+	/**
+	 * Metodo utilizado para adicionar dinheiro ao usuario.
+	 * 
+	 * @param usuario
+	 *            Usuario que terá o dinheiro adicionado.
+	 * @param valor
+	 *            Valor que será adicionado ao dinheiro do usuário.
+	 */
 	
 	public void adicionaDinheiro(Usuario usuario, double valor){
 		try {
 			usuario.adicionaDinheiro(valor);
 		} catch (EntradaException e) {
 			System.out.println(e.getMessage());
-
 		}
 	}
+	
+	/**
+	 * Metodo utilizado para imprimir as informações do P2CG
+	 */
 	
 	public void imprimeInformacoes(){
 		System.out.println("=== Central P2-CG ===");
@@ -156,12 +211,15 @@ public class Loja {
 			System.out.println("");
 			
 			totalPrecoJogo = 0;
-			
-			
 		}
-	
 	}
-
+	
+	/**
+	 * Metodo para retorno da lista de usuarios.
+	 * 
+	 * @return List<Usuario> - Lista de usuarios.
+	 */
+	
 	public List<Usuario> getListaDeUsuarios() {
 		return listaDeUsuarios;
 	}	

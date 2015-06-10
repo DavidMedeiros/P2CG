@@ -3,18 +3,44 @@ import Jogo.Jogabilidade;
 import Jogo.Jogo;
 import Mananger.DadoInvalidoException;
 import Mananger.EntradaException;
+import Mananger.JogoNaoEncontradoException;
 import Mananger.LogicaException;
 import Mananger.StringInvalidaException;
 
 
 public class Noob extends Usuario {
 
+	/**
+	 * Construtor da classe usuario.
+	 * 
+	 * @param nome
+	 *            Nome do usuario.
+	 * @param login
+	 *            Login do usuario.
+	 * 
+	 * @throws EntradaException
+	 *             Uma excessao será lançada caso alguma entrada seja vazia.
+	 */
+	
 	public Noob(String nome, String login) throws EntradaException {
 		super(nome, login);
 	}
 
+	/**
+	 * Metodo responsavel por recompensar o usuario dependendo das suas jogabilidades.
+	 * 
+	 * @param nomeDoJogo
+	 *            Nome do Jogo.
+	 * @param score
+	 *            Score da jogada atual.
+	 * @param zerouOJogo
+	 *            Indicação se o usuario zerou o jogo.
+	 * @throws EntradaException Uma excessão será lançada caso uma entrada seja vazia.
+	 * @throws LogicaException  Uma excessão será lançada caso o jogo a ser recompensado não seja encontrado.
+	 */
+	
 	@Override
-	public void recompensar(String nomeDoJogo, int score, boolean zerouOJogo) throws EntradaException {
+	public void recompensar(String nomeDoJogo, int score, boolean zerouOJogo) throws EntradaException, LogicaException {
 		
 		if (nomeDoJogo.equals("") || nomeDoJogo == null) {
 			throw new StringInvalidaException();
@@ -33,14 +59,27 @@ public class Noob extends Usuario {
 				if (jogo.getJogabilidades().contains(Jogabilidade.MULTIPLAYER)){
 					this.x2p += 10;
 				}
-				
+				return;
 			}
 		}
-		//jogo nao existe
+		throw new JogoNaoEncontradoException();
 	}
 	
+	/**
+	 * Metodo responsavel por punir o usuario dependendo das suas jogabilidades.
+	 * 
+	 * @param nomeDoJogo
+	 *            Nome do Jogo.
+	 * @param score
+	 *            Score da jogada atual.
+	 * @param zerouOJogo
+	 *            Indicação se o usuario zerou o jogo.
+	 * @throws EntradaException Uma excessão será lançada caso uma entrada seja vazia.
+	 * @throws LogicaException  Uma excessão será lançada caso o jogo a ser punido não seja encontrado.
+	 */
+	
 	@Override
-	public void punir(String nomeDoJogo, int score, boolean zerouOJogo) throws EntradaException {
+	public void punir(String nomeDoJogo, int score, boolean zerouOJogo) throws EntradaException, LogicaException {
 		
 		if (nomeDoJogo.equals("") || nomeDoJogo == null) {
 			throw new StringInvalidaException();
@@ -64,8 +103,16 @@ public class Noob extends Usuario {
 				}
 			}
 		}
-		//exception o jogo nao faz parte
+		throw new JogoNaoEncontradoException();
 	}
+	
+	/**
+	 * Metodo responsavel por comprar um jogo, 10% de desconto será ofertado para o usuário do tipo Noob.
+	 * 
+	 * @param jogo
+	 *            Jogo que será comprado.
+	 * @return Retorna o preço do desconto que será dado.
+	 */
 	
 	@Override
 	public double comprarJogo(Jogo jogo) {
@@ -80,6 +127,12 @@ public class Noob extends Usuario {
 		
 		return 0;
 	}
+	
+	/**
+	 * Metodo utilizado para indicar o tipo de usuário.
+	 * 
+	 * @return Retorna o nome da classe.
+	 */	
 	
 	@Override
 	public String toString() {
