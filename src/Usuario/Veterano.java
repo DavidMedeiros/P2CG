@@ -1,4 +1,7 @@
+/* 114211306 - David de Medeiros Souza: LAB 5- Turma 3 */
+
 package Usuario;
+
 import Jogo.Jogabilidade;
 import Jogo.Jogo;
 import Mananger.DadoInvalidoException;
@@ -6,7 +9,6 @@ import Mananger.EntradaException;
 import Mananger.JogoNaoEncontradoException;
 import Mananger.LogicaException;
 import Mananger.StringInvalidaException;
-
 
 public class Veterano extends Usuario {
 	
